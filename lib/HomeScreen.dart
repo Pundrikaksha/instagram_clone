@@ -1,78 +1,65 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:instagram_clone/body.dart';
+
+import 'StoryPage.dart';
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  void onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+  int _currentIndex=0;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar:  AppBar(
-        elevation: 1.0,
-        title:Container(  margin: const EdgeInsets.only(left:20.0),height :80,child: Image.asset("assets/images/insta_logo.jpg")),
-        actions: [
 
+    return Scaffold(
+      appBar: AppBar(
+        title:Container(  margin: const EdgeInsets.only(left:20.0),height :80,child: Image.asset("assets/images/insta_logo.jpg")),
+
+        actions: [
           Padding(
             padding: const EdgeInsets.only(right:25.0),
             child: Icon(
                 FontAwesomeIcons.search
             ),
-          ),
-          Padding(
+          )
+          ,Padding(
             padding: const EdgeInsets.only(right:25.0),
             child: Icon(
-              FontAwesomeIcons.facebookMessenger
+                FontAwesomeIcons.facebookMessenger
             ),
-          ),
+          )
+        ],
+        elevation: 0.2,
+
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        onTap:onTabTapped,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white70,
+        backgroundColor: Colors.black,
+        currentIndex: _currentIndex,
+        items:[
+
+          BottomNavigationBarItem(icon:Icon( FontAwesomeIcons.home),label: "",backgroundColor: Colors.black),
+          BottomNavigationBarItem(icon:Icon( FontAwesomeIcons.tv),label: ""),
+
+          BottomNavigationBarItem(icon:Icon( FontAwesomeIcons.plusSquare),label: "")
+          ,BottomNavigationBarItem(icon:Icon( FontAwesomeIcons.heart),label: "")
+          ,BottomNavigationBarItem(icon:Icon( FontAwesomeIcons.user),label: "")
 
         ],
       ),
-      body: InstaBody(),
-      bottomNavigationBar: Container(
-        height: 65.0,
-        child: BottomAppBar(
-          color: Colors.black,
-          child: Row(
+      body:BuildInstagramBody() ,
 
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              new IconButton(
-                icon: Icon(
-                  Icons.home,
-                ),
-                onPressed: () {},
-              ),
-              new IconButton(
-                icon: Icon(
-                  Icons.live_tv,
-                ),
-                onPressed: null,
-              ),
-              new IconButton(
-                icon: Icon(
-                  Icons.add_box_outlined,
-                ),
-                onPressed: null,
-              ),
-              new IconButton(
-                icon: Icon(
-                  Icons.favorite_border_outlined
-                ),
-                onPressed: null,
-              ),
-              new IconButton(
-                icon: Icon(
-                  Icons.account_circle,
-                ),
-                onPressed: null,
-              ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }
+

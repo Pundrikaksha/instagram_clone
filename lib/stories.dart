@@ -1,57 +1,39 @@
 import 'package:flutter/material.dart';
 
-class InstaStories extends StatelessWidget {
-
-
-  final stories = Expanded(
-    child: new ListView.builder(
-      scrollDirection: Axis.horizontal,
-      itemCount: 5,
-      itemBuilder: (context, index) => new Stack(
-        alignment: Alignment.bottomRight,
-        children: <Widget>[
-          new Container(
-            width: 60.0,
-            height: 60.0,
-            decoration: new BoxDecoration(
-              shape: BoxShape.circle,
-              image: new DecorationImage(
-                  fit: BoxFit.fill,
-                  image: new NetworkImage(
-                      "https://i.pinimg.com/originals/a3/fb/5d/a3fb5def518705c9cc739299234c2779.jpg")),
-            ),
-            margin: const EdgeInsets.symmetric(horizontal: 8.0),
-          ),
-          index == 0
-              ? Positioned(
-              right: 10.0,
-              child: new CircleAvatar(
-                backgroundColor: Colors.blueAccent,
-                radius: 10.0,
-                child: new Icon(
-                  Icons.add,
-                  size: 14.0,
-                  color: Colors.white,
-                ),
-              ))
-              : new Container()
-        ],
-      ),
-    ),
-  );
+import 'StoryPage.dart';
+class BuildInstagramStory extends StatelessWidget {
+  const BuildInstagramStory({
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
-      margin: const EdgeInsets.only(bottom:15.0),
-      child: new Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
+    return SizedBox(
+      height: 100,
+      child: ListView.builder(itemBuilder: (context,index){
+        return FlatButton(
+          onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>StoryPage()));
+          },
+          child: CircleAvatar(
 
-          stories,
-        ],
+            backgroundImage: NetworkImage("https://bsmedia.business-standard.com/_media/bs/img/topic-profile/profile-images/thumb/463_463/1559746194.png"),
+
+            radius:35,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom:8.0,right: 6.0),
+              child:index==0? Align(alignment: AlignmentDirectional.bottomEnd,child: Icon(Icons.add_circle_sharp,color:Colors.blue[400],)):Container(),
+            ),
+
+          ),
+        );
+
+      },
+        itemCount: 5,
+        shrinkWrap: true,
+        scrollDirection:Axis.horizontal,
+        physics: ScrollPhysics(),
+
       ),
     );
   }
